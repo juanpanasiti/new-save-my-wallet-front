@@ -1,19 +1,26 @@
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
 import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 interface Props {
   drawerWidth: number;
+  isDrawerOpen?: boolean;
 }
-export const Navbar = ({ drawerWidth }: Props) => {
+export const Navbar = ({ drawerWidth, isDrawerOpen = true }: Props) => {
+    const [spaceLeft, setSpaceLeft] = useState(0)
+    useEffect(() => {
+        setSpaceLeft(!isDrawerOpen ? 0 : drawerWidth)
+    }, [drawerWidth, isDrawerOpen])
+    
   return (
     <AppBar
       position='fixed'
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        width: { sm: `calc(100% - ${spaceLeft}px)` },
         ml: { sm: `${drawerWidth}px` },
         backgroundColor: 'primary.main',
         opacity: 0.9,
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.3s ease',
       }}
     >
       <Toolbar>
@@ -29,11 +36,13 @@ export const Navbar = ({ drawerWidth }: Props) => {
         </IconButton>
 
         <Grid container direction='row' justifyContent='space-between' alignItems='center'>
-            <Typography variant='h6'noWrap component='div'>SaveMyWallet</Typography>
+          <Typography variant='h6' noWrap component='div'>
+            SaveMyWallet
+          </Typography>
 
-            <IconButton color='secondary'>
-                <LogoutOutlined />
-            </IconButton>
+          <IconButton color='secondary'>
+            <LogoutOutlined />
+          </IconButton>
         </Grid>
       </Toolbar>
     </AppBar>
