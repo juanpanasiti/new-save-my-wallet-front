@@ -1,8 +1,10 @@
+import { BrowserRouter } from 'react-router-dom';
+import { AppRouter } from './router/AppRouter';
+
 export const SaveMyWalletApp = () => {
   return (
-    <>
-      <h1>SaveMyWalletApp v2</h1>
-      <hr />
-    </>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   );
 };
