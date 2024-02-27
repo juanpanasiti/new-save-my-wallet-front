@@ -4,12 +4,14 @@ import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from 'react-hook-form';
 import { LoginForm } from '../types';
+import { useAuth } from '../hooks';
 
 export const LoginPage = () => {
   const { register, handleSubmit, formState } = useForm<LoginForm>();
+  const { authMutation } = useAuth()
 
   const onSubmit = (data: LoginForm) => {
-    console.log(data);
+    authMutation.mutate(data);
   };
 
   return (
@@ -36,6 +38,10 @@ export const LoginPage = () => {
               {...register('password', { required: true })}
             />
             {formState.errors.password && <span>This field is required</span>}
+          </Grid>
+          {/* Error Message */}
+          <Grid item xs={12}>
+            { authMutation.error && <Typography color='error'>Username or password went wrong</Typography>}
           </Grid>
           {/* Buttons */}
           <Grid container spacing={2} sx={{ mb: 2 }}>
