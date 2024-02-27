@@ -1,6 +1,6 @@
 import { Login } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from 'react-hook-form';
 import { LoginForm } from '../types';
@@ -8,10 +8,13 @@ import { useAuth } from '../hooks';
 
 export const LoginPage = () => {
   const { register, handleSubmit, formState } = useForm<LoginForm>();
-  const { authMutation } = useAuth()
+  const { loginMutation } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = (data: LoginForm) => {
-    authMutation.mutate(data);
+    loginMutation.mutate(data, {
+      onSuccess: () => navigate('/', { replace: true }),
+    });
   };
 
   return (
@@ -41,7 +44,7 @@ export const LoginPage = () => {
           </Grid>
           {/* Error Message */}
           <Grid item xs={12}>
-            { authMutation.error && <Typography color='error'>Username or password went wrong</Typography>}
+            {loginMutation.error && <Typography color='error'>Username or password went wrong</Typography>}
           </Grid>
           {/* Buttons */}
           <Grid container spacing={2} sx={{ mb: 2 }}>

@@ -1,5 +1,5 @@
-import { smwApiClient } from '../../api';
-import { LoginData, LoginResponse } from '../types/auth.interfaces';
+import smwApiClient from '../../api/smwClient';
+import { LoginData, LoginResponse, UserInfoResponse } from '../types/auth.interfaces';
 
 export const apiLogin = async (loginForm: LoginData): Promise<LoginResponse> => {
   const formData = new FormData();
@@ -9,3 +9,8 @@ export const apiLogin = async (loginForm: LoginData): Promise<LoginResponse> => 
   const response = await smwApiClient.post<LoginResponse>('/auth/login', formData);
   return response.data;
 };
+
+export const apiGetUserInfo = async () => {
+    const response = await smwApiClient.get<UserInfoResponse>('/auth/info');
+    return response.data;
+}
