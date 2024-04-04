@@ -1,16 +1,17 @@
 import smwApiClient from '../../api/smwClient';
-import { LoginData, LoginResponse, UserInfoResponse } from '../types/auth.interfaces';
+import { AuthResponse, LoginData, RegisterData } from '../interfaces';
 
-export const apiLogin = async (loginForm: LoginData): Promise<LoginResponse> => {
-  const formData = new FormData();
-  formData.append('username', loginForm.username);
-  formData.append('password', loginForm.password);
-
-  const response = await smwApiClient.post<LoginResponse>('/auth/login', formData);
+export const apiLogin = async (loginData: LoginData): Promise<AuthResponse> => {
+  const response = await smwApiClient.post<AuthResponse>('/auth/login', loginData);
   return response.data;
 };
 
-export const apiGetUserInfo = async () => {
-    const response = await smwApiClient.get<UserInfoResponse>('/auth/info');
+export const apiRegister = async (registerData: RegisterData): Promise<AuthResponse> => {
+  const response = await smwApiClient.post<AuthResponse>('/auth/register', registerData);
+  return response.data;
+}
+
+export const apiRenewToken = async () => {
+    const response = await smwApiClient.get<AuthResponse>('/auth/token');
     return response.data;
 }
