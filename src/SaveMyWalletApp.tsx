@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { AppRouter } from './router/AppRouter';
 import { AppTheme } from './theme';
-import { apiGetUserInfo } from './auth/api/auth.endpoints';
+import { apiRenewToken } from './auth/api/auth.endpoints';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +17,7 @@ await queryClient.prefetchQuery({
   queryKey: ['isLoggedIn'],
   queryFn: async () => {
     try {
-      await apiGetUserInfo()
+      await apiRenewToken()
       return true;
     } catch {
       return false;
