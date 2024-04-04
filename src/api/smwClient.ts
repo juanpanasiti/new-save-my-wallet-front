@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
 const smwApiClient = axios.create({
-    baseURL: 'https://api.smw.juanpanasiti.com.ar/api/v1'
+    baseURL: `${import.meta.env.VITE_SMW_API}/api/v2`
 })
 
 // Request Interceptor
@@ -21,7 +21,7 @@ smwApiClient.interceptors.request.use(
   // Response Interceptor
   smwApiClient.interceptors.response.use(
     (response: AxiosResponse) => {
-      const newToken = response.headers['renewed-token'];
+      const newToken = response.data?.token
       if (newToken) {
         localStorage.setItem('token', newToken);
       }
