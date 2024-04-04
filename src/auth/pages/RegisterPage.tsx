@@ -3,11 +3,11 @@ import { AuthLayout } from '../layout/AuthLayout';
 import { Login } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { RegisterForm } from '../types';
+import { RegisterData } from '../interfaces';
 
 export const RegisterPage = () => {
-  const { formState, register, handleSubmit } = useForm<RegisterForm>();
-  const onSubmit = (data: RegisterForm) => {
+  const { formState, register, handleSubmit } = useForm<RegisterData>();
+  const onSubmit = (data: RegisterData) => {
     console.log(data);
   };
   return (
