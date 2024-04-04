@@ -7,7 +7,7 @@ export const useAuth = () => {
   const loginMutation = useMutation({
     mutationFn: apiLogin,
     onSuccess: (data) => {
-      saveToken(data.access_token);
+      saveToken(data.token);
       queryClient.setQueryData(['isLoggedIn'], true);
     },
   });
