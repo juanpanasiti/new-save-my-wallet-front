@@ -1,6 +1,6 @@
 import { Login } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from 'react-hook-form';
 import { LoginData } from '../interfaces';
@@ -9,12 +9,9 @@ import { useAuth } from '../hooks';
 export const LoginPage = () => {
   const { register, handleSubmit, formState } = useForm<LoginData>();
   const { loginMutation } = useAuth();
-  const navigate = useNavigate();
 
   const onSubmit = (data: LoginData) => {
-    loginMutation.mutate(data, {
-      onSuccess: () => navigate('/', { replace: true }),
-    });
+    loginMutation.mutate(data);
   };
 
   return (
