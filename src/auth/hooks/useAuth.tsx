@@ -16,6 +16,8 @@ export const useAuth = () => {
 		queryFn: getNewAuthStatus,
 		staleTime: 1000 * 60 * 60 * 12,
 		placeholderData: initialAuthStatus,
+    retryOnMount: true,
+    retry: false,
 	});
 
 	const queryClient = useQueryClient();
@@ -35,7 +37,7 @@ export const useAuth = () => {
 	});
 
 	const setLogout = () => {
-		authQuery.data = initialAuthStatus;
+		queryClient.setQueryData(['authStatus'], initialAuthStatus);
 	};
 
 	return {
