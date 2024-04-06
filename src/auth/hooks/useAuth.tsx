@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiLogin } from '../api/auth.endpoints';
+import { apiLogin, apiRegister } from '../api/auth.endpoints';
 import { getNewAuthStatus, saveToken } from '../helpers';
 import { AuthStatus } from '../../common/interfaces';
+import { AuthResponse } from '../interfaces';
 
 export const useAuth = () => {
 	const initialAuthStatus: AuthStatus = {
@@ -16,24 +17,29 @@ export const useAuth = () => {
 		queryFn: getNewAuthStatus,
 		staleTime: 1000 * 60 * 60 * 12,
 		placeholderData: initialAuthStatus,
-    retryOnMount: true,
-    retry: false,
+		retryOnMount: true,
+		retry: false,
 	});
 
 	const queryClient = useQueryClient();
+	const handleAuth = (data: AuthResponse) => {
+		saveToken(data.token);
+		const authStatus: AuthStatus = {
+			userId: data.id,
+			username: data.username,
+			email: data.email,
+			token: data.token,
+			isAuthenticated: true,
+		};
+		queryClient.setQueryData(['authStatus'], authStatus);
+	};
 	const loginMutation = useMutation({
 		mutationFn: apiLogin,
-		onSuccess: (data) => {
-			saveToken(data.token);
-			const authStatus: AuthStatus = {
-				userId: data.id,
-				username: data.username,
-				email: data.email,
-				token: data.token,
-				isAuthenticated: true,
-			};
-			queryClient.setQueryData(['authStatus'], authStatus);
-		},
+		onSuccess: handleAuth,
+	});
+	const registerMutation = useMutation({
+		mutationFn: apiRegister,
+		onSuccess: handleAuth,
 	});
 
 	const setLogout = () => {
@@ -42,6 +48,7 @@ export const useAuth = () => {
 
 	return {
 		loginMutation,
+		registerMutation,
 		authQuery,
 		setLogout,
 	};
