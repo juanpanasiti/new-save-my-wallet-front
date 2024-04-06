@@ -4,24 +4,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { AppRouter } from './router/AppRouter';
 import { AppTheme } from './theme';
-import { apiRenewToken } from './auth/api/auth.endpoints';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
     },
-  },
-});
-await queryClient.prefetchQuery({
-  queryKey: ['isLoggedIn'],
-  queryFn: async () => {
-    try {
-      await apiRenewToken()
-      return true;
-    } catch {
-      return false;
-    }
   },
 });
 
