@@ -1,0 +1,1 @@
+export * from './smw-routes.enum';
