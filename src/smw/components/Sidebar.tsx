@@ -1,6 +1,7 @@
 import { AttachMoney, CreditCard, Dashboard, Person2Outlined, ReceiptLong } from '@mui/icons-material';
 import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
 import { ListItemButtonWithIcon } from './';
+import { useAuth } from '../../auth/hooks';
 
 interface Props {
   drawerWidth: number;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export const Sidebar = ({ drawerWidth, drawerOpen = true }: Props) => {
+  const { authQuery } = useAuth();
   return (
     <Box component='nav' sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
       <Drawer
@@ -23,7 +25,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen = true }: Props) => {
         }}>
           <Person2Outlined sx={{mr:1}} />
           <Typography variant='h6' noWrap component='div'>
-            username
+            {authQuery.data?.username}
           </Typography>
         </Toolbar>
         <Divider />
