@@ -5,7 +5,7 @@ import { useAuth } from '../../auth/hooks';
 
 export const SMWRoutes = () => {
   const {authQuery} = useAuth()
-  if (!authQuery.data.isAuthenticated) return <Navigate to='/auth/login' />
+  if (!authQuery.data?.isAuthenticated) return <Navigate to='/auth/login' />
   return (
     <Routes>
       <Route path='/' element={<HomePage />} />

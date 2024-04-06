@@ -5,7 +5,7 @@ import { useAuth } from '../hooks';
 
 export const AuthRoutes = () => {
 	const { authQuery } = useAuth();
-	if (authQuery.data.isAuthenticated) return <Navigate to='/' />;
+	if (authQuery.data?.isAuthenticated) return <Navigate to='/' />;
 
 	return (
 		<Routes>

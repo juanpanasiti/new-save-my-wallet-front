@@ -1,6 +1,5 @@
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
 import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { removeToken } from '../../auth/helpers';
 import { useNavigate } from 'react-router-dom';
