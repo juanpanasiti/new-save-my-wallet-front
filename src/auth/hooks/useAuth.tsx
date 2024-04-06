@@ -4,6 +4,8 @@ import { getNewAuthStatus, saveToken } from '../helpers';
 import { AuthStatus } from '../../common/interfaces';
 import { AuthResponse } from '../interfaces';
 
+const AUTH_STATUS_QUERY_KEY = 'authStatus';
+
 export const useAuth = () => {
 	const initialAuthStatus: AuthStatus = {
 		userId: '',
@@ -13,7 +15,7 @@ export const useAuth = () => {
 		isAuthenticated: false,
 	};
 	const authQuery = useQuery<AuthStatus>({
-		queryKey: ['authStatus'],
+		queryKey: [AUTH_STATUS_QUERY_KEY],
 		queryFn: getNewAuthStatus,
 		staleTime: 1000 * 60 * 60 * 12,
 		placeholderData: initialAuthStatus,
@@ -31,7 +33,7 @@ export const useAuth = () => {
 			token: data.token,
 			isAuthenticated: true,
 		};
-		queryClient.setQueryData(['authStatus'], authStatus);
+		queryClient.setQueryData([AUTH_STATUS_QUERY_KEY], authStatus);
 	};
 	const loginMutation = useMutation({
 		mutationFn: apiLogin,
@@ -43,7 +45,7 @@ export const useAuth = () => {
 	});
 
 	const setLogout = () => {
-		queryClient.setQueryData(['authStatus'], initialAuthStatus);
+		queryClient.setQueryData([AUTH_STATUS_QUERY_KEY], initialAuthStatus);
 	};
 
 	return {
