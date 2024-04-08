@@ -10,7 +10,6 @@ export const apiCreditCardList = async (limit: number = 10, offset: number = 0, 
 	};
 
 	const { data } = await smwApiClient.get<ApiResponse<CreditCard[]>>(ApiEndpoints.CREDIT_CARDS, { params });
-	console.log(data)
 
 	return data.data;
 };
