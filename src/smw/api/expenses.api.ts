@@ -1,8 +1,7 @@
 import smwApiClient from '../../api/smwClient';
 import { ApiEndpoints } from '../../common/enums';
-import { ExpenseType } from '../enums/expense-types.enum';
-import { ApiResponse } from '../interfaces';
-import { Expense } from '../interfaces/expense.interface';
+import { ExpenseType } from '../enums';
+import { ApiResponse, Expense } from '../interfaces';
 type Params = {
     limit: number;
     offset: number;

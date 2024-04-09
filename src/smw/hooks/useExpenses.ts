@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { Expense } from '../interfaces/expense.interface';
+import { Expense } from '../interfaces';
 import { apiExpensesList } from '../api';
 import { useAuth } from '../../auth/hooks';
 import { useEffect, useState } from 'react';
-import { ExpenseType } from '../enums/expense-types.enum';
+import { ExpenseType } from '../enums';
 import { useCreditCards } from './useCreditCards';
 
 const EXPENSES_QUERY_KEY = 'expenses';

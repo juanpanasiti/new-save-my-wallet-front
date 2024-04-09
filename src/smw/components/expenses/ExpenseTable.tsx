@@ -1,7 +1,6 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { Expense } from '../../interfaces/expense.interface';
 import { ExpenseTableRow } from './ExpenseTableRow';
-import { CreditCard } from '../../interfaces';
+import { CreditCard, Expense } from '../../interfaces';
 
 interface Props {
 	expenses: Expense[];
