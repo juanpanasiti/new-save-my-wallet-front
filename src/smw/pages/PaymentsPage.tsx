@@ -1,7 +1,24 @@
-import { Typography } from "@mui/material"
+import { Box, Divider, Typography } from '@mui/material';
+import { useExpenses } from '../hooks/useExpenses';
+import { PeriodStatus } from '../enums';
+import { PeriodList } from '../components/payments';
 
 export const PaymentsPage = () => {
-  return (
-			<Typography>Payments Page</Typography>
-  )
-}
+	const { periods } = useExpenses();
+	const pendingOnes = periods.filter((period) => period.status === PeriodStatus.pending);
+	const doneOnes = periods.filter((period) => period.status === PeriodStatus.done);
+	return (
+		<Box>
+			<Typography variant='h2'>Payments</Typography>
+			<Divider>
+				<Typography variant='h4'>Payments Pending</Typography>
+			</Divider>
+			<PeriodList periods={pendingOnes} />
+
+			<Divider>
+				<Typography variant='h4'>Payments Done</Typography>
+				<PeriodList periods={doneOnes} />
+			</Divider>
+		</Box>
+	);
+};
