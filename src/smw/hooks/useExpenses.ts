@@ -4,7 +4,7 @@ import { apiExpensesList } from '../api';
 import { useAuth } from '../../auth/hooks';
 import { useEffect, useState } from 'react';
 import { ExpenseType } from '../enums';
-import { useCreditCards } from './useCreditCards';
+import { useCreditCards } from './';
 import { getPeriods } from '../helpers';
 
 const EXPENSES_QUERY_KEY = 'expenses';
