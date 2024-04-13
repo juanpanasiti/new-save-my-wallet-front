@@ -9,9 +9,9 @@ interface Props {
 }
 
 export const CreditCardCard = ({ creditCard }: Props) => {
-	const limitStr = parseCurrency(creditCard.limit)
-	const closesAt = parseDate(creditCard.nextClosingDate)
-	const expiringAt = parseDate(creditCard.nextExpiringDate)
+	const limitStr = parseCurrency(creditCard.limit);
+	const closesAt = parseDate(creditCard.nextClosingDate);
+	const expiringAt = parseDate(creditCard.nextExpiringDate);
 	const { open, handleOpen } = useModal();
 	return (
 		<Box component={Paper} sx={{ p: 2 }}>
@@ -24,7 +24,9 @@ export const CreditCardCard = ({ creditCard }: Props) => {
 			<Typography variant='h6'>Extensions: {creditCard.extensions.length}</Typography>
 
 			<Box sx={{}}>
-				<Button onClick={handleOpen} variant='outlined' ><Edit/></Button>
+				<Button onClick={handleOpen} variant='outlined'>
+					<Edit />
+				</Button>
 			</Box>
 			<CreditCardModal creditCard={creditCard} open={open} handleOpen={() => handleOpen()} />
 		</Box>

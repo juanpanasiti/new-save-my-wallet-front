@@ -1,14 +1,14 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
-import { Payment } from '../../interfaces'
-import { PaymentTableRow } from './PaymentTableRow'
+import { Payment } from '../../interfaces';
+import { PaymentTableRow } from './PaymentTableRow';
 
 interface Props {
-    payments: Payment[]
+	payments: Payment[];
 }
-export const PaymentTable = ({payments}: Props) => {
-  return (
-    <TableContainer component={Paper}>
+export const PaymentTable = ({ payments }: Props) => {
+	return (
+		<TableContainer component={Paper}>
 			<Table>
 				<TableHead>
 					<TableRow>
@@ -26,5 +26,5 @@ export const PaymentTable = ({payments}: Props) => {
 				</TableBody>
 			</Table>
 		</TableContainer>
-  )
-}
+	);
+};

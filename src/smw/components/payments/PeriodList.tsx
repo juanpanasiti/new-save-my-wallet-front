@@ -12,7 +12,7 @@ export const PeriodList = ({ periods }: Props) => {
 		setSelectedPanel(panelName === selectedPanel ? null : panelName);
 	};
 	return (
-		<Box sx={{p:2}}>
+		<Box sx={{ p: 2 }}>
 			{periods.map((period) => (
 				<PeriodAccordition
 					key={period.name}

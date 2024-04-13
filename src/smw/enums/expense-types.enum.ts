@@ -1,4 +1,4 @@
-export enum ExpenseType{
-    PURCHASE = 'purchase',
-    SUBSCRIPTION = 'subscription',
+export enum ExpenseType {
+	PURCHASE = 'purchase',
+	SUBSCRIPTION = 'subscription',
 }

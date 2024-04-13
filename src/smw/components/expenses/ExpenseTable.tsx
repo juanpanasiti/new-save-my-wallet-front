@@ -4,7 +4,7 @@ import { CreditCard, Expense } from '../../interfaces';
 
 interface Props {
 	expenses: Expense[];
-    creditCards: CreditCard[];
+	creditCards: CreditCard[];
 }
 export const ExpenseTable = ({ expenses, creditCards }: Props) => {
 	return (
