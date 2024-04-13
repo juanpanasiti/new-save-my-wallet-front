@@ -1,6 +1,6 @@
 import smwApiClient from '../../api/smwClient';
 import { ApiEndpoints } from '../../common/enums';
-import { cleanCreditCard } from '../helpers/clean-credit-card';
+import { cleanCreditCard } from '../helpers';
 import { ApiResponse, CreditCard } from '../interfaces';
 
 export const apiCreditCardList = async (
