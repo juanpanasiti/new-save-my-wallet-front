@@ -36,7 +36,7 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 				{/* mainCreditCard */}
 				<FormControl fullWidth>
 					<InputLabel htmlFor='main-credit-card-select'>Main CC</InputLabel>
-					<Select id='main-credit-card-select' onChange={handleSelectChange}>
+					<Select id='main-credit-card-select' onChange={handleSelectChange} sx={{ mb: 2 }}>
 						<MenuItem>None</MenuItem>
 						{mainCreditCards.map((cc) => (
 							<MenuItem key={cc.id} value={cc.id}>
@@ -51,6 +51,7 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 					type='text'
 					placeholder='Ej: VISA - ####'
 					fullWidth
+					sx={{ mb: 2 }}
 					{...register('name', { required: true })}
 				/>
 
@@ -59,16 +60,22 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 					label='Buy Limit'
 					type='number'
 					fullWidth
+					sx={{ mb: 2 }}
 					{...register('limit', { required: true, valueAsNumber: true })}
 				/>
 
 				{/* nextClosingDate */}
-				<TextField type='date' fullWidth {...register('nextClosingDate', { required: true, min: Date() })} />
+				<TextField
+					type='date'
+					fullWidth
+					{...register('nextClosingDate', { required: true, min: Date() })}
+					sx={{ mb: 2 }}
+				/>
 
 				{/* nextExpiringDate */}
-				<TextField type='date' fullWidth {...register('nextExpiringDate', { required: true })} />
+				<TextField type='date' fullWidth {...register('nextExpiringDate', { required: true })} sx={{ mb: 2 }} />
 
-				<Button type='submit' color='primary' variant='outlined' sx={{ m: 2 }}>
+				<Button type='submit' color='primary' variant='outlined'>
 					{isNew ? 'Create' : 'Save'}
 				</Button>
 			</Box>
