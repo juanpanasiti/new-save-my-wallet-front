@@ -68,7 +68,7 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 				{/* nextExpiringDate */}
 				<TextField type='date' fullWidth {...register('nextExpiringDate', { required: true })} />
 
-				<Button type='submit' color='secondary' sx={{ m: 2 }}>
+				<Button type='submit' color='primary' variant='outlined' sx={{ m: 2 }}>
 					{isNew ? 'Create' : 'Save'}
 				</Button>
 			</Box>

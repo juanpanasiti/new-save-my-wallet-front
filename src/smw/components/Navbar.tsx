@@ -28,7 +28,7 @@ export const Navbar = ({ drawerWidth, isDrawerOpen = true }: Props) => {
 			sx={{
 				width: { sm: `calc(100% - ${spaceLeft}px)` },
 				ml: { sm: `${drawerWidth}px` },
-				backgroundColor: 'primary.main',
+				backgroundColor: 'primary.dark',
 				opacity: 0.9,
 				transition: 'all 0.3s ease',
 			}}
@@ -50,7 +50,7 @@ export const Navbar = ({ drawerWidth, isDrawerOpen = true }: Props) => {
 						SaveMyWallet
 					</Typography>
 
-					<IconButton color='secondary' onClick={handleLogout}>
+					<IconButton color='warning' onClick={handleLogout}>
 						<LogoutOutlined />
 					</IconButton>
 				</Grid>

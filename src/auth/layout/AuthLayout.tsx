@@ -18,7 +18,7 @@ export const AuthLayout = ({ children, title }: Props) => {
         padding: 4,
       }}
     >
-      <Grid item xs={3} sx={{ width: { md: 450 }, backgroundColor: 'primary.light', padding: 3, borderRadius: 2 }}>
+      <Grid item xs={3} sx={{ width: { md: 450 }, backgroundColor: 'background.paper', padding: 3, borderRadius: 2 }}>
         <Typography variant='h5' sx={{ mb: 1 }}>
           {title}
         </Typography>

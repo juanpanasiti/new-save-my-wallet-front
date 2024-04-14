@@ -28,7 +28,7 @@ export const CreditsCardsPage = () => {
 			</Grid>
 
 			{/* Credit Card Modal Form */}
-			<Fab sx={fabStyle} aria-label={fab.label} color='secondary' onClick={handleOpen}>
+			<Fab sx={fabStyle} aria-label={fab.label} color='primary' onClick={handleOpen}>
 				{fab.icon}
 			</Fab>
 			<CreditCardModal open={open} handleOpen={() => handleOpen()} />

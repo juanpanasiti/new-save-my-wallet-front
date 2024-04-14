@@ -15,7 +15,7 @@ export const CreditCardCard = ({ creditCard }: Props) => {
 	const { open, handleOpen } = useModal();
 	return (
 		<Box component={Paper} sx={{ p: 2 }}>
-			<Typography color={'secondary'} variant='h4'>
+			<Typography color={'primary'} variant='h4'>
 				{creditCard.name}
 			</Typography>
 			<Typography variant='h6'>Limit: {limitStr}</Typography>
