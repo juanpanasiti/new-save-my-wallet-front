@@ -1,21 +1,12 @@
-import { Fab, Grid, SxProps, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useCreditCards, useModal } from '../hooks';
 import { CreditCardCard, CreditCardModal } from '../components/credit-cards';
 import { AddCard } from '@mui/icons-material';
+import { Fab } from '../../common/components';
 
 export const CreditsCardsPage = () => {
 	const { mainCreditCards } = useCreditCards();
 	const { open, handleOpen } = useModal();
-	const fabStyle: SxProps = {
-		position: 'absolute',
-		bottom: 25,
-		right: 25,
-	};
-
-	const fab = {
-		icon: <AddCard />,
-		label: 'Edit',
-	};
 	return (
 		<>
 			<Typography variant='h2'>Credit Cards</Typography>
@@ -28,9 +19,7 @@ export const CreditsCardsPage = () => {
 			</Grid>
 
 			{/* Credit Card Modal Form */}
-			<Fab sx={fabStyle} aria-label={fab.label} color='primary' onClick={handleOpen}>
-				{fab.icon}
-			</Fab>
+			<Fab handleClick={handleOpen} icon={<AddCard />} label='' color='primary' />
 			<CreditCardModal open={open} handleOpen={() => handleOpen()} />
 		</>
 	);
