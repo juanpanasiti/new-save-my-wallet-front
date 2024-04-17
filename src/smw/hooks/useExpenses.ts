@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Expense, Period } from '../interfaces';
-import { apiExpensesList } from '../api';
+import { apiExpensesList, apiNewExpense, apiUpdateExpense } from '../api';
 import { useAuth } from '../../auth/hooks';
 import { useEffect, useState } from 'react';
 import { ExpenseType } from '../enums';
@@ -22,6 +22,14 @@ export const useExpenses = () => {
 		placeholderData: [],
 		enabled: isEnabled,
 	});
+	const createMutation = useMutation({
+		mutationFn: apiNewExpense,
+		onSuccess: () => expensesQuery.refetch(),
+	});
+	const updateMutation = useMutation({
+		mutationFn: apiUpdateExpense,
+		onSuccess: () => expensesQuery.refetch(),
+	});
 	useEffect(() => {
 		if (expensesQuery.data) {
 			setPurchases(expensesQuery.data?.filter((expense) => expense.type === ExpenseType.PURCHASE));
@@ -35,5 +43,7 @@ export const useExpenses = () => {
 		purchases,
 		subscriptions,
 		periods,
+		updateMutation,
+		createMutation,
 	};
 };

@@ -4,6 +4,7 @@ import { ExpenseType } from '../enums';
 import { Payment } from './payments.interface';
 
 export interface Expense {
+	id: string;
 	title: string;
 	ccName: string;
 	acquiredAt: string;
@@ -12,6 +13,6 @@ export interface Expense {
 	amount: number;
 	installments: number;
 	firstPaymentDate: string;
+	isDone: boolean;
 	payments: Payment[];
-	id: string;
 }
