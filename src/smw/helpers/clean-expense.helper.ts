@@ -4,7 +4,6 @@ interface ApiExpense extends Omit<Expense, 'creditCard'> {
 	creditCardId: string;
 }
 export const cleanExpense = ({ creditCard, ...data }: Expense): Partial<ApiExpense> => {
-	console.table(data);
 	const response: Partial<ApiExpense> = { ...data };
 	delete response.payments;
 	delete response.id;

@@ -17,7 +17,6 @@ export const ExpenseForm = ({ expense, afterSubmit }: Props) => {
 	const onSubmit = (data: Expense) => {
 		try {
 			if (data.id === '') {
-				console.log('first')
 				createMutation.mutate(data);
 			} else {
 				updateMutation.mutate(data);
