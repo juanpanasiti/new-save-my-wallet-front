@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { CreditCard } from '../interfaces';
-import { apiCreditCardList, apiNewCreditCard, apiUpdateCreditCard } from '../api';
+import { apiCreditCardList, apiDeleteCreditCard, apiNewCreditCard, apiUpdateCreditCard } from '../api';
 import { useAuth } from '../../auth/hooks';
 import { useEffect, useState } from 'react';
 
@@ -24,6 +24,10 @@ export const useCreditCards = () => {
 		mutationFn: apiUpdateCreditCard,
 		onSuccess: () => creditCardsQuery.refetch(),
 	});
+	const deleteMutation = useMutation({
+		mutationFn: apiDeleteCreditCard,
+		onSuccess: () => creditCardsQuery.refetch(),
+	});
 
 	useEffect(() => {
 		if (creditCardsQuery.data) setMainCreditCards(creditCardsQuery.data?.filter((cc) => !cc.mainCreditCard));
@@ -34,5 +38,6 @@ export const useCreditCards = () => {
 		mainCreditCards,
 		createMutation,
 		updateMutation,
+		deleteMutation
 	};
 };
