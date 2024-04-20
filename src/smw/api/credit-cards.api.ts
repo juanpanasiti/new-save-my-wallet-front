@@ -42,3 +42,7 @@ export const apiUpdateCreditCard = async (creditCard: CreditCard): Promise<Credi
 
 	return data.data;
 };
+
+export const apiDeleteCreditCard = async (creditCardId: string): Promise<void> => {
+	await smwApiClient.delete<ApiResponse<CreditCard>>(`${ApiEndpoints.CREDIT_CARDS}/${creditCardId}`);
+};
