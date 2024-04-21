@@ -1,26 +1,28 @@
 import { Alert, AlertTitle, Typography } from '@mui/material';
 import { useExpenses } from '../hooks/useExpenses';
 import { ExpenseModalForm, ExpenseTable } from '../components/expenses';
-import { useCreditCards, useModal } from '../hooks';
+import { useCreditCards, useFilterExpenses, useModal } from '../hooks';
 import { Fab } from '../../common/components';
 import { ReceiptLong } from '@mui/icons-material';
+import { ExpensesFilterForm } from '../components/expenses/ExpensesFilterForm';
 
 export const ExpensesPage = () => {
 	const { expensesQuery } = useExpenses();
 	const { creditCardsQuery } = useCreditCards();
+	const { filteredExpenses, ...restFilterData } = useFilterExpenses({ originalExpenses: expensesQuery.data || [] });
 	const { open, handleOpen } = useModal();
 	return (
 		<>
-			<Typography>Expenses Page</Typography>
-			{expensesQuery.data?.length === 0 && (
+			<Typography variant='h2'>Expenses</Typography>
+			<ExpensesFilterForm creditCards={creditCardsQuery.data || []} {...restFilterData} />
+			{filteredExpenses.length === 0 && (
 				<Alert severity='info'>
 					<AlertTitle>Nothing to show</AlertTitle>
 					There are no expenses to show!
 				</Alert>
 			)}
-			{
-			expensesQuery.data && expensesQuery.data.length > 0 && (
-				<ExpenseTable expenses={expensesQuery.data || []} creditCards={creditCardsQuery.data || []} />
+			{filteredExpenses.length > 0 && (
+				<ExpenseTable expenses={filteredExpenses} creditCards={creditCardsQuery.data || []} />
 			)}
 
 			<Fab handleClick={handleOpen} icon={<ReceiptLong />} color='primary' />
