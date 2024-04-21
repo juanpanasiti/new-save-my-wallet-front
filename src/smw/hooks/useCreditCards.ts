@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 const CREDIT_CARDS_QUERY_KEY = 'creditCards';
 export const useCreditCards = () => {
 	const [mainCreditCards, setMainCreditCards] = useState<CreditCard[]>([]);
+	const [extensions, setExtensions] = useState<CreditCard[]>([]);
 	const { authQuery } = useAuth();
 	const creditCardsQuery = useQuery<CreditCard[]>({
 		queryKey: [CREDIT_CARDS_QUERY_KEY],
@@ -30,7 +31,8 @@ export const useCreditCards = () => {
 	});
 
 	useEffect(() => {
-		if (creditCardsQuery.data) setMainCreditCards(creditCardsQuery.data?.filter((cc) => !cc.mainCreditCard));
+		if (creditCardsQuery.data) setMainCreditCards(creditCardsQuery.data?.filter((cc) => cc.mainCreditCard === null));
+		if (creditCardsQuery.data) setExtensions(creditCardsQuery.data?.filter((cc) => cc.mainCreditCard !== null));
 	}, [creditCardsQuery.data]);
 
 	return {
@@ -38,6 +40,7 @@ export const useCreditCards = () => {
 		mainCreditCards,
 		createMutation,
 		updateMutation,
-		deleteMutation
+		deleteMutation,
+		extensions,
 	};
 };
