@@ -7,3 +7,4 @@ export * from './clean-credit-card';
 export * from './filter-extensions.helper';
 export * from './filter-expenses.helper';
 export * from './get-total-remaining.helper';
+export * from './get-payment-status-icon';

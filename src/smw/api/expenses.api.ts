@@ -2,7 +2,7 @@ import smwApiClient from '../../api/smwClient';
 import { ApiEndpoints } from '../../common/enums';
 import { ExpenseType } from '../enums';
 import { cleanExpense } from '../helpers/clean-expense.helper';
-import { ApiResponse, Expense } from '../interfaces';
+import { ApiResponse, Expense, Payment, PaymentUpdate } from '../interfaces';
 type Params = {
 	limit: number;
 	offset: number;
@@ -22,10 +22,7 @@ export const apiExpensesList = async (params: Params): Promise<Expense[]> => {
 };
 
 export const apiNewExpense = async (newExpense: Expense): Promise<Expense> => {
-	const { data } = await smwApiClient.post<ApiResponse<Expense>>(
-		ApiEndpoints.EXPENSES,
-		cleanExpense(newExpense)
-	);
+	const { data } = await smwApiClient.post<ApiResponse<Expense>>(ApiEndpoints.EXPENSES, cleanExpense(newExpense));
 
 	return data.data;
 };
@@ -34,6 +31,20 @@ export const apiUpdateExpense = async (expense: Expense): Promise<Expense> => {
 	const { data } = await smwApiClient.patch<ApiResponse<Expense>>(
 		`${ApiEndpoints.EXPENSES}/${expense.id}`,
 		cleanExpense(expense)
+	);
+
+	return data.data;
+};
+
+interface ApiUpdatePaymentParams {
+	expenseId: string;
+	paymentId: string;
+	paymentData: PaymentUpdate;
+}
+export const apiUpdatePayment = async ({expenseId, paymentId, paymentData}: ApiUpdatePaymentParams): Promise<Payment> => {
+	const { data } = await smwApiClient.patch<ApiResponse<Payment>>(
+		`${ApiEndpoints.EXPENSES}/${expenseId}/payments/${paymentId}`,
+		paymentData
 	);
 
 	return data.data;

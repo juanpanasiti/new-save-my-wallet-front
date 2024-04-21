@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Expense, Period } from '../interfaces';
-import { apiExpensesList, apiNewExpense, apiUpdateExpense } from '../api';
+import { apiExpensesList, apiNewExpense, apiUpdateExpense, apiUpdatePayment } from '../api';
 import { useAuth } from '../../auth/hooks';
 import { useEffect, useState } from 'react';
 import { ExpenseType } from '../enums';
@@ -30,6 +30,10 @@ export const useExpenses = () => {
 		mutationFn: apiUpdateExpense,
 		onSuccess: () => expensesQuery.refetch(),
 	});
+	const updatePaymentMutation = useMutation({
+		mutationFn: apiUpdatePayment,
+		onSuccess: () => expensesQuery.refetch(),
+	});
 	useEffect(() => {
 		if (expensesQuery.data) {
 			setPurchases(expensesQuery.data?.filter((expense) => expense.type === ExpenseType.PURCHASE));
@@ -45,5 +49,6 @@ export const useExpenses = () => {
 		periods,
 		updateMutation,
 		createMutation,
+		updatePaymentMutation,
 	};
 };
