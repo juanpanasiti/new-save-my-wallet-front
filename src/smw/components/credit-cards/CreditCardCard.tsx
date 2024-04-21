@@ -4,6 +4,8 @@ import { parseCurrency, parseDate } from '../../helpers';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import { useCreditCards, useModal } from '../../hooks';
 import { CreditCardModal } from './CreditCardModal';
+import { CreditCardDeleteDialog } from './CreditCardDeleteDialog';
+
 interface Props {
 	creditCard: CreditCard;
 }
@@ -14,9 +16,13 @@ export const CreditCardCard = ({ creditCard }: Props) => {
 	const closesAt = parseDate(creditCard.nextClosingDate);
 	const expiringAt = parseDate(creditCard.nextExpiringDate);
 	const { open, handleOpen } = useModal();
+	const { open: openDialog, handleOpen: handleOpenDialog } = useModal();
 
 	const handleDelete = () => {
 		deleteMutation.mutate(creditCard.id)
+	}
+	const handleConfirmDelete = () => {
+		handleOpenDialog()
 	}
 	return (
 		<Box component={Paper} sx={{ p: 2 }}>
@@ -32,10 +38,11 @@ export const CreditCardCard = ({ creditCard }: Props) => {
 				<Button onClick={handleOpen} variant='outlined'>
 					<Edit />
 				</Button>
-				<Button onClick={handleDelete} variant='outlined' color='error' sx={{ml:2}}>
+				<Button onClick={handleConfirmDelete} variant='outlined' color='error' sx={{ml:2}}>
 					<DeleteForever />
 				</Button>
 			</Box>
+			<CreditCardDeleteDialog handleClose={handleOpenDialog} open={openDialog} handleAgree={handleDelete} />
 			<CreditCardModal creditCard={creditCard} open={open} handleOpen={() => handleOpen()} />
 		</Box>
 	);
