@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Alert, AlertTitle, Typography } from '@mui/material';
 import { useExpenses } from '../hooks/useExpenses';
 import { ExpenseModalForm, ExpenseTable } from '../components/expenses';
 import { useCreditCards, useModal } from '../hooks';
@@ -12,7 +12,16 @@ export const ExpensesPage = () => {
 	return (
 		<>
 			<Typography>Expenses Page</Typography>
-			<ExpenseTable expenses={expensesQuery.data || []} creditCards={creditCardsQuery.data || []} />
+			{expensesQuery.data?.length === 0 && (
+				<Alert severity='info'>
+					<AlertTitle>Nothing to show</AlertTitle>
+					There are no expenses to show!
+				</Alert>
+			)}
+			{
+			expensesQuery.data && expensesQuery.data.length > 0 && (
+				<ExpenseTable expenses={expensesQuery.data || []} creditCards={creditCardsQuery.data || []} />
+			)}
 
 			<Fab handleClick={handleOpen} icon={<ReceiptLong />} color='primary' />
 			<ExpenseModalForm open={open} handleOpen={() => handleOpen()} />
