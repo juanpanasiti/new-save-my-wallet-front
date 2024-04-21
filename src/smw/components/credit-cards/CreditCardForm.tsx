@@ -28,12 +28,13 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 	};
 	const handleSelectChange = ({ target }: SelectChangeEvent) => {
 		setValue('mainCreditCard', target.value);
-		const selected = mainCreditCards.find((cc) => cc.id === target.value);
+		const selected = mainCreditCards?.find((cc) => cc.id === target.value);
 		if (selected === undefined) return;
 		setValue('limit', selected.limit)
 		setValue('nextClosingDate', selected.nextClosingDate)
 		setValue('nextExpiringDate', selected.nextExpiringDate)
 	};
+	if (mainCreditCards === undefined) return <div>Loading...</div>;
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -43,7 +44,7 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 					<InputLabel htmlFor='main-credit-card-select'>Main CC</InputLabel>
 					<Select id='main-credit-card-select' onChange={handleSelectChange} sx={{ mb: 2 }} defaultValue={creditCard.mainCreditCard || undefined}>
 						<MenuItem>None</MenuItem>
-						{mainCreditCards.map((cc) => (
+						{mainCreditCards?.map((cc) => (
 							<MenuItem key={cc.id} value={cc.id}>
 								{cc.name}
 							</MenuItem>

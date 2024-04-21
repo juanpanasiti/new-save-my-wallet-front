@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 const CREDIT_CARDS_QUERY_KEY = 'creditCards';
 export const useCreditCards = () => {
-	const [mainCreditCards, setMainCreditCards] = useState<CreditCard[]>([]);
+	const [mainCreditCards, setMainCreditCards] = useState<CreditCard[]>();
 	const [extensions, setExtensions] = useState<CreditCard[]>([]);
 	const { authQuery } = useAuth();
 	const creditCardsQuery = useQuery<CreditCard[]>({

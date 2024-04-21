@@ -10,14 +10,14 @@ export const CreditsCardsPage = () => {
 	return (
 		<>
 			<Typography variant='h2'>Credit Cards</Typography>
-			{mainCreditCards.length === 0 && (
+			{mainCreditCards?.length === 0 && (
 				<Alert severity='info'>
 					<AlertTitle>Nothing to show</AlertTitle>
 					There are no credit cards to show, but you can <b><a onClick={handleOpen}>add a new one</a></b>.
 				</Alert>
 			)}
 			<Grid container spacing={2}>
-				{mainCreditCards.map((creditCard) => (
+				{mainCreditCards?.map((creditCard) => (
 					<Grid item xs={12} sm={6} md={6} lg={4} key={creditCard.id}>
 						<CreditCardCard creditCard={creditCard} />
 					</Grid>
