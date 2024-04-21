@@ -24,9 +24,9 @@ export const CreditCardDeleteDialog = ({ handleAgree, handleClose, open }: Props
 				</DialogContentText>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={handleClose}>Disagree</Button>
+				<Button onClick={handleClose}>Cancel</Button>
 				<Button onClick={handleAgreeClick} autoFocus>
-					Agree
+					Delete
 				</Button>
 			</DialogActions>
 		</Dialog>
