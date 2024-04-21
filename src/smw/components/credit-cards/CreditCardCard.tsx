@@ -1,11 +1,12 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
 import { CreditCard } from '../../interfaces';
-import { parseCurrency, parseDate } from '../../helpers';
+import { filterExpenses, parseCurrency, parseDate } from '../../helpers';
 import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
-import { useCreditCards, useModal } from '../../hooks';
+import { useCreditCards, useExpenses, useModal } from '../../hooks';
 import { CreditCardModal } from './CreditCardModal';
 import { CreditCardDeleteDialog } from './CreditCardDeleteDialog';
 import { CreditCardInfoDialog } from './CreditCardInfoDialog';
+import { getTotalRemaining } from '../../helpers';
 
 interface Props {
 	creditCard: CreditCard;
@@ -13,6 +14,11 @@ interface Props {
 
 export const CreditCardCard = ({ creditCard }: Props) => {
 	const { deleteMutation } = useCreditCards();
+	const { purchases, subscriptions } = useExpenses();
+	const ccPurchases = filterExpenses(purchases, creditCard.id);
+	const ccSubscriptions = filterExpenses(subscriptions, creditCard.id);
+	const totalRemainingPurchases = getTotalRemaining(ccPurchases)
+	const totalRemainingSubscriptions = getTotalRemaining(ccSubscriptions)
 	const limitStr = parseCurrency(creditCard.limit);
 	const closesAt = parseDate(creditCard.nextClosingDate);
 	const expiringAt = parseDate(creditCard.nextExpiringDate);
@@ -37,6 +43,13 @@ export const CreditCardCard = ({ creditCard }: Props) => {
 				<Typography>
 					<b>Limit:</b> {limitStr}
 				</Typography>
+				<Typography>
+					<b>Purchases:</b> {totalRemainingPurchases}
+				</Typography>
+				<Typography>
+					<b>Subscriptions:</b> {totalRemainingSubscriptions}
+				</Typography>
+
 				<Typography>
 					<b>Closes at:</b> {closesAt}
 				</Typography>

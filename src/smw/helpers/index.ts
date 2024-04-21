@@ -5,3 +5,5 @@ export * from './get-payments';
 export * from './get-periods';
 export * from './clean-credit-card';
 export * from './filter-extensions.helper';
+export * from './filter-expenses.helper';
+export * from './get-total-remaining.helper';
