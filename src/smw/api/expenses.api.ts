@@ -35,13 +35,20 @@ export const apiUpdateExpense = async (expense: Expense): Promise<Expense> => {
 
 	return data.data;
 };
+export const apiDeleteExpense = async (expenseId: string): Promise<void> => {
+	await smwApiClient.delete<ApiResponse<void>>(`${ApiEndpoints.EXPENSES}/${expenseId}`);
+};
 
 interface ApiUpdatePaymentParams {
 	expenseId: string;
 	paymentId: string;
 	paymentData: PaymentUpdate;
 }
-export const apiUpdatePayment = async ({expenseId, paymentId, paymentData}: ApiUpdatePaymentParams): Promise<Payment> => {
+export const apiUpdatePayment = async ({
+	expenseId,
+	paymentId,
+	paymentData,
+}: ApiUpdatePaymentParams): Promise<Payment> => {
 	const { data } = await smwApiClient.patch<ApiResponse<Payment>>(
 		`${ApiEndpoints.EXPENSES}/${expenseId}/payments/${paymentId}`,
 		paymentData
