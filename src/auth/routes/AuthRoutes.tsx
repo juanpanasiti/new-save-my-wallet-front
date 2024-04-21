@@ -5,7 +5,8 @@ import { useAuth } from '../hooks';
 
 export const AuthRoutes = () => {
 	const { authQuery } = useAuth();
-	if (authQuery.data?.isAuthenticated) return <Navigate to='/' />;
+	const lastPath = localStorage.getItem('lastPath') || '/';
+	if (authQuery.data?.isAuthenticated) return <Navigate to={lastPath} />;
 
 	return (
 		<Routes>

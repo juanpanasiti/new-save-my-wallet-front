@@ -1,6 +1,7 @@
 import { Box, Toolbar } from '@mui/material';
 import { Navbar, Sidebar } from '../components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface Props {
 	children: React.ReactNode;
@@ -13,6 +14,10 @@ export const SmwLayout = ({ children }: Props) => {
 	// const handleToggle = () => {
 	// 	setShowSidebar(!showSidebar);
 	// };
+	const { pathname } = useLocation();
+	useEffect(() => {
+		localStorage.setItem('lastPath', pathname);
+	}, [pathname]);
 	return (
 		<Box sx={{ display: 'flex', height: '100vh' }}>
 			<Navbar drawerWidth={drawerWidth} isDrawerOpen={showSidebar} />
