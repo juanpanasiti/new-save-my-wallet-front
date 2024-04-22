@@ -9,8 +9,10 @@ import { useModal } from '../../hooks';
 
 interface Props {
 	payment: Payment;
+	hideTitle?: boolean;
+	hidePeriod?: boolean;
 }
-export const PaymentTableRow = ({ payment }: Props) => {
+export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true }: Props) => {
 	const { expensesQuery, updatePaymentMutation } = useExpenses();
 	const expense = expensesQuery.data?.find((expense) => expense.id === payment.expense);
 	const installment: string =
@@ -20,10 +22,12 @@ export const PaymentTableRow = ({ payment }: Props) => {
 		updatePaymentMutation.mutate({ expenseId: payment.expense, paymentId: payment.id, paymentData: data });
 	};
 	const { open: openModalDialog, handleOpen: handleOpenModalDialog } = useModal();
+	const period = `${payment.month}-${payment.year}`.padStart(7, '0');
 	return (
 		<TableRow key={payment.id}>
-			<TableCell>{expense?.title}</TableCell>
+			{!hideTitle && <TableCell>{expense?.title}</TableCell>}
 			<TableCell>{parseCurrency(payment.amount)}</TableCell>
+			{!hidePeriod && <TableCell>{period}</TableCell>}
 			<TableCell>{installment}</TableCell>
 			<TableCell>{statusIcon}</TableCell>
 			<TableCell>
@@ -56,7 +60,12 @@ export const PaymentTableRow = ({ payment }: Props) => {
 						<MonetizationOn />
 					</Button>
 				</ButtonGroup>
-				<PaymentUpdateAmountDialog payment={payment} handleClose={handleOpenModalDialog} open={openModalDialog} handleUpdate={handleUpdatePayment} />
+				<PaymentUpdateAmountDialog
+					payment={payment}
+					handleClose={handleOpenModalDialog}
+					open={openModalDialog}
+					handleUpdate={handleUpdatePayment}
+				/>
 			</TableCell>
 		</TableRow>
 	);

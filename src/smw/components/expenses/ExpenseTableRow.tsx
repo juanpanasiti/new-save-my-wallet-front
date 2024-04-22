@@ -7,6 +7,7 @@ import { getExpenseStatus } from '../../helpers/get-expense-status';
 import { useExpenses, useModal } from '../../hooks';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
+import { ExpenseShowDialog } from './ExpenseShowDialog';
 
 interface Props {
 	expense: Expense;
@@ -16,8 +17,10 @@ interface Props {
 export const ExpenseTableRow = ({ expense, creditCards }: Props) => {
 	const { deleteMutation } = useExpenses();
 	const creditCard = creditCards.find((card) => card.id === expense.creditCard);
+	const creditCardName = creditCard?.name || '';
 	const expenseType = expense.type === ExpenseType.PURCHASE ? 'Purchase' : 'Subscription';
 	const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
+	const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
 	const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
 
 	const handleDelete = () => {
@@ -30,7 +33,7 @@ export const ExpenseTableRow = ({ expense, creditCards }: Props) => {
 		<>
 			<TableRow key={expense.id}>
 				<TableCell>{expense.title}</TableCell>
-				<TableCell>{creditCard?.name}</TableCell>
+				<TableCell>{creditCardName}</TableCell>
 				<TableCell>{expenseType}</TableCell>
 				<TableCell>{parseCurrency(expense.amount)}</TableCell>
 				<TableCell>{getExpenseStatus(expense)}</TableCell>
@@ -40,7 +43,7 @@ export const ExpenseTableRow = ({ expense, creditCards }: Props) => {
 						<Button color='warning' onClick={handleOpenModalForm}>
 							<Edit />
 						</Button>
-						<Button color='info'>
+						<Button color='info' onClick={handleOpenDialogShow}>
 							<Visibility />
 						</Button>
 						<Button color='error' onClick={handleConfirmDelete}>
@@ -50,6 +53,12 @@ export const ExpenseTableRow = ({ expense, creditCards }: Props) => {
 				</TableCell>
 			</TableRow>
 			<ExpenseModalForm expense={expense} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
+			<ExpenseShowDialog
+				expense={expense}
+				open={openDialogShow}
+				handleClose={handleOpenDialogShow}
+				creditCardName={creditCardName}
+			/>
 			<ExpenseDeleteDialog
 				expenseTitle={expense.title}
 				handleClose={handleOpenDialogDelete}

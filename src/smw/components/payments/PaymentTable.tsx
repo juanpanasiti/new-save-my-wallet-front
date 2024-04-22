@@ -5,15 +5,18 @@ import { PaymentTableRow } from './PaymentTableRow';
 
 interface Props {
 	payments: Payment[];
+	hideTitle?: boolean;
+	hidePeriod?: boolean;
 }
-export const PaymentTable = ({ payments }: Props) => {
+export const PaymentTable = ({ payments, hideTitle = false, hidePeriod = true }: Props) => {
 	return (
 		<TableContainer component={Paper}>
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell>Title</TableCell>
+						{!hideTitle && <TableCell>Title</TableCell>}
 						<TableCell>Amount</TableCell>
+						{!hidePeriod && <TableCell>Period</TableCell>}
 						<TableCell>Installment</TableCell>
 						<TableCell>Status</TableCell>
 						<TableCell>Actions</TableCell>
@@ -21,7 +24,12 @@ export const PaymentTable = ({ payments }: Props) => {
 				</TableHead>
 				<TableBody>
 					{payments.map((payment) => (
-						<PaymentTableRow key={payment.id} payment={payment} />
+						<PaymentTableRow
+							key={payment.id}
+							payment={payment}
+							hideTitle={hideTitle}
+							hidePeriod={hidePeriod}
+						/>
 					))}
 				</TableBody>
 			</Table>
