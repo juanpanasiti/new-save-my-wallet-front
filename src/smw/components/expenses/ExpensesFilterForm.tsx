@@ -15,7 +15,7 @@ export const ExpensesFilterForm = (props: Props) => {
 	const { creditCards, textFilter, creditCardId, expenseType, setTextFilter, setCreditCardId, setExpenseType } =
 		props;
 	const defaultCreditCardId = creditCardId || 'any';
-	const defaultExpenseType = expenseType || 'all';
+	const defaultExpenseType = expenseType || 'any';
 
 	const onTextFilterChange = (text: string) => {
 		setTextFilter(text);
