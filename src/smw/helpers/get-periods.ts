@@ -24,6 +24,5 @@ export const getPeriods = (expenses: Expense[]): Period[] => {
 			status: periodStatus,
 		};
 	});
-
-	return periods.sort();
+	return periods.sort((a,b) => a.label.localeCompare(b.label));
 };
