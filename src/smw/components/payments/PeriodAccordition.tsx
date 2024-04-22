@@ -3,6 +3,8 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/
 import { Period } from '../../interfaces';
 import { parseCurrency } from '../../helpers';
 import { PaymentTable } from './PaymentTable';
+import { PaymentsFilterForm } from './PaymentsFilterForm';
+import { useCreditCards, useFilterPayments } from '../../hooks';
 
 interface Props {
 	period: Period;
@@ -11,7 +13,9 @@ interface Props {
 }
 
 export const PeriodAccordition = ({ period, handleChange, selectedPanel }: Props) => {
-	const total: number = period.payments.reduce((sum, payment) => sum + payment.amount, 0);
+	const { filteredPayments, ...restFilterData } = useFilterPayments({ originalPayments: period.payments });
+	const total: number = filteredPayments.reduce((sum, payment) => sum + payment.amount, 0);
+	const { creditCardsQuery } = useCreditCards();
 
 	return (
 		<Accordion expanded={selectedPanel === period.name} onChange={() => handleChange(period.name)}>
@@ -24,7 +28,8 @@ export const PeriodAccordition = ({ period, handleChange, selectedPanel }: Props
 				<Typography sx={{ color: 'text.secondary' }}>{parseCurrency(total)}</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<PaymentTable payments={period.payments} />
+				<PaymentsFilterForm creditCards={creditCardsQuery.data || []} {...restFilterData} />
+				<PaymentTable payments={filteredPayments} />
 			</AccordionDetails>
 		</Accordion>
 	);
