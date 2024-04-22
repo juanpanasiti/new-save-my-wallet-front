@@ -12,4 +12,5 @@ export const defaultExpense: Expense = {
 	installments: 0,
 	firstPaymentDate: '',
 	payments: [],
+	isDone: false,
 };
