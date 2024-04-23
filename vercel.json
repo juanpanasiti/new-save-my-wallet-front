@@ -1,0 +1,8 @@
+{
+    "routes": [
+        {
+            "src": "/credit-cards",
+            "dest": "/credit-cards"
+        }
+    ]
+}
