@@ -57,7 +57,7 @@ export const ExpenseForm = ({ expense, afterSubmit }: Props) => {
                         select
 						sx={{ mb: 2 }}
                         label='Type'
-                        defaultValue={expense.creditCard}
+                        defaultValue={expense.type}
                         fullWidth
                         onChange={(e) => handleSelectChangeType(e as SelectChangeEvent)}
                     >
