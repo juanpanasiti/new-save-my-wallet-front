@@ -17,8 +17,8 @@ export const CreditCardCard = ({ creditCard }: Props) => {
 	const { purchases, subscriptions } = useExpenses();
 	const ccPurchases = filterExpenses(purchases, creditCard.id);
 	const ccSubscriptions = filterExpenses(subscriptions, creditCard.id);
-	const totalRemainingPurchases = getTotalRemaining(ccPurchases)
-	const totalRemainingSubscriptions = getTotalRemaining(ccSubscriptions)
+	const totalRemainingPurchases = parseCurrency(getTotalRemaining(ccPurchases));
+	const totalRemainingSubscriptions = parseCurrency(getTotalRemaining(ccSubscriptions));
 	const limitStr = parseCurrency(creditCard.limit);
 	const closesAt = parseDate(creditCard.nextClosingDate);
 	const expiringAt = parseDate(creditCard.nextExpiringDate);
