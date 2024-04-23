@@ -1,8 +1,5 @@
 {
-    "routes": [
-        {
-            "src": "/credit-cards",
-            "dest": "/credit-cards"
-        }
-    ]
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/" }
+      ]
 }
