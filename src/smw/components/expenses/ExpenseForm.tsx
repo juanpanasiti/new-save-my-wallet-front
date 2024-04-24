@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Box, Button, FormControl, MenuItem, SelectChangeEvent, TextField } from '@mui/material';
 import { Expense } from '../../interfaces';
 import { useForm } from 'react-hook-form';
@@ -14,6 +15,12 @@ export const ExpenseForm = ({ expense, afterSubmit }: Props) => {
     const { createMutation, updateMutation } = useExpenses();
     const isNew = expense.id === '';
     const { creditCardsQuery } = useCreditCards();
+
+    useEffect(() => {
+        const today = new Date();
+        setValue('acquiredAt', today.toISOString().slice(0, 10));
+    }, [setValue]);
+
     const onSubmit = (data: Expense) => {
         try {
             if (data.id === '') {
@@ -36,26 +43,26 @@ export const ExpenseForm = ({ expense, afterSubmit }: Props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <Box>
                 {/* creditCard */}
-                    <TextField
-                        select
-						sx={{ mb: 2 }}
-                        label='Credit Card'
-                        defaultValue={expense.creditCard}
-                        fullWidth
-                        onChange={(e) => handleSelectChangeCreditCard(e as SelectChangeEvent)}
-                    >
-                        {creditCardsQuery.data?.map((cc) => (
-                            <MenuItem key={cc.id} value={cc.id}>
-                                {cc.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+                <TextField
+                    select
+                    sx={{ mb: 2 }}
+                    label='Credit Card'
+                    defaultValue={expense.creditCard}
+                    fullWidth
+                    onChange={(e) => handleSelectChangeCreditCard(e as SelectChangeEvent)}
+                >
+                    {creditCardsQuery.data?.map((cc) => (
+                        <MenuItem key={cc.id} value={cc.id}>
+                            {cc.name}
+                        </MenuItem>
+                    ))}
+                </TextField>
 
                 {/* type */}
                 <FormControl fullWidth>
                     <TextField
                         select
-						sx={{ mb: 2 }}
+                        sx={{ mb: 2 }}
                         label='Type'
                         defaultValue={expense.type}
                         fullWidth
@@ -93,12 +100,25 @@ export const ExpenseForm = ({ expense, afterSubmit }: Props) => {
 
                 {/* acquiredAt */}
                 <FormControl fullWidth>
-                    <TextField id='acquired-at-date' label='Acquired At' type='date' fullWidth {...register('acquiredAt', { required: true })} sx={{ mb: 2 }} />
+                    <TextField
+                        id='acquired-at-date'
+                        label='Acquired At'
+                        type='date'
+                        fullWidth
+                        {...register('acquiredAt', { required: true })}
+                        sx={{ mb: 2 }}
+                    />
                 </FormControl>
 
                 {/* firstPaymentDate */}
                 <FormControl fullWidth>
-                    <TextField type='date' label='First Payment Date' fullWidth {...register('firstPaymentDate', { required: true })} sx={{ mb: 2 }} />
+                    <TextField
+                        type='date'
+                        label='First Payment Date'
+                        fullWidth
+                        {...register('firstPaymentDate', { required: true })}
+                        sx={{ mb: 2 }}
+                    />
                 </FormControl>
 
                 <Button type='submit' color='primary' variant='outlined'>
