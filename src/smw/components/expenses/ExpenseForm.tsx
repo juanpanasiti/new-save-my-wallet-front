@@ -4,6 +4,7 @@ import { Expense } from '../../interfaces';
 import { useForm } from 'react-hook-form';
 import { ExpenseType } from '../../enums';
 import { useCreditCards, useExpenses } from '../../hooks';
+import { getNextPaymentDate } from '../../helpers';
 
 interface Props {
     expense: Expense;
@@ -11,15 +12,20 @@ interface Props {
 }
 
 export const ExpenseForm = ({ expense, afterSubmit }: Props) => {
-    const { register, handleSubmit, setValue } = useForm<Expense>({ defaultValues: expense });
+    const { register, handleSubmit, setValue, watch } = useForm<Expense>({ defaultValues: expense });
     const { createMutation, updateMutation } = useExpenses();
     const isNew = expense.id === '';
     const { creditCardsQuery } = useCreditCards();
-
+    const { acquiredAt } = watch()
     useEffect(() => {
         const today = new Date();
         setValue('acquiredAt', today.toISOString().slice(0, 10));
     }, [setValue]);
+
+    useEffect(() => {
+      setValue('firstPaymentDate', getNextPaymentDate(acquiredAt))
+    }, [acquiredAt, setValue])
+    
 
     const onSubmit = (data: Expense) => {
         try {
