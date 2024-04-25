@@ -1,6 +1,6 @@
 import { PeriodStatus, PaymentStatus } from '../enums';
 import { Expense, Payment, Period } from '../interfaces';
-import { getPayments } from './get-payments';
+import { getPayments } from './get-payments.helper';
 
 const getStatus = (payments: Payment[]): PeriodStatus => {
 	if (payments.some((payment) => payment.status !== PaymentStatus.paid)) return PeriodStatus.pending;

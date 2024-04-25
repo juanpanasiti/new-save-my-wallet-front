@@ -3,7 +3,7 @@ import { Expense, CreditCard } from '../../interfaces';
 import { parseCurrency, parseDate } from '../../helpers';
 import { ExpenseType } from '../../enums';
 import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
-import { getExpenseStatus } from '../../helpers/get-expense-status';
+import { getExpenseStatus } from '../../helpers/get-expense-status.helper';
 import { useExpenses, useModal } from '../../hooks';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
