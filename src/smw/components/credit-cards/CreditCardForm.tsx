@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { Box, Button, MenuItem, SelectChangeEvent, TextField } from '@mui/material';
 import { CreditCard } from '../../interfaces';
 import { useCreditCards } from '../../hooks';
 import { useForm } from 'react-hook-form';
@@ -40,17 +40,21 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Box>
 				{/* mainCreditCard */}
-				<FormControl fullWidth>
-					<InputLabel htmlFor='main-credit-card-select'>Main CC</InputLabel>
-					<Select id='main-credit-card-select' onChange={handleSelectChange} sx={{ mb: 2 }} defaultValue={creditCard.mainCreditCard || undefined}>
-						<MenuItem>None</MenuItem>
-						{mainCreditCards?.map((cc) => (
-							<MenuItem key={cc.id} value={cc.id}>
-								{cc.name}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
+				<TextField
+                    select
+                    label='Credit Card'
+					sx={{ mb: 2 }}
+                    defaultValue={creditCard.mainCreditCard || undefined}
+                    fullWidth
+                    onChange={(e) => handleSelectChange(e as SelectChangeEvent)}
+                >
+                    {mainCreditCards?.map((cc) => (
+                        <MenuItem key={cc.id} value={cc.id}>
+                            {cc.name}
+                        </MenuItem>
+                    ))}
+					<MenuItem>None</MenuItem>
+                </TextField>
 				{/* name */}
 				<TextField
 					label='Name'
