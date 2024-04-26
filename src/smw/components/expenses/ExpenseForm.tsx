@@ -55,6 +55,7 @@ export const ExpenseForm = ({ expense, afterSubmit }: Props) => {
                     label='Credit Card'
                     defaultValue={expense.creditCard}
                     fullWidth
+                    required
                     onChange={(e) => handleSelectChangeCreditCard(e as SelectChangeEvent)}
                 >
                     {creditCardsQuery.data?.map((cc) => (
