@@ -40,7 +40,7 @@ export const ExpensesFilterForm = (props: Props) => {
 			<Grid item xs={3}>
 				<TextField
 					select
-					label='Select'
+					label='Credit Card'
 					defaultValue={defaultCreditCardId}
 					fullWidth
 					onChange={(e) => onCreditCardIdChange(e.target.value)}
@@ -56,7 +56,7 @@ export const ExpensesFilterForm = (props: Props) => {
 			<Grid item xs={3}>
 				<TextField
 					select
-					label='Select'
+					label='Type'
 					defaultValue={defaultExpenseType}
 					fullWidth
 					onChange={(e) => onExpenseTypeChange(e.target.value as ExpenseType | 'any')}
